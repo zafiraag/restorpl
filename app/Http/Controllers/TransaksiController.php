@@ -41,7 +41,7 @@ class TransaksiController extends Controller
     public function store(RequestStoreTransaksi $request)
     {
         $validated = $request->validated();
-        $menu = Menu::findOrFail($validated['menu'])->first();
+        $menu = Menu::findOrFail($validated['menu']);
         if ($menu->stok < (int) $validated['jumlah']) {
             return redirect()->back()->with('error', 'Stok tidak mencukupi');
         }
@@ -113,6 +113,8 @@ class TransaksiController extends Controller
     public function laporan()
     {
         return view('dashboard.transaksis.laporan');
+
+        // klo ada garis bawah gitu, tgl klik ctrl + klik. tar dia ngarah ke view nya
     }
 
     public function dataLaporan(Request $request)
